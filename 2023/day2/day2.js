@@ -69,7 +69,7 @@ function getPossibleGamesCount(games, elfSet) {
   return result;
 }
 
-function getPowerOfMinimumSetOfCubesForGame(games) {
+function getSumOfPowerOfMinimumSetOfCubes(games) {
   let powers = [];
   for (let i = 0; i < games.length; i++) {
     let red = 0;
@@ -90,7 +90,7 @@ function getPowerOfMinimumSetOfCubesForGame(games) {
           : blue;
     }
 
-    powers = [...powers, getPower(red, green, blue)];
+    powers = [...powers, red * green * blue];
   }
 
   return powers.reduce((partialSum, a) => partialSum + a, 0);
@@ -100,17 +100,11 @@ function getColorValue(setObject, color) {
   return setObject[color] != null ? Number(setObject[color]) : 1;
 }
 
-function getPower(red, green, blue) {
-  return (
-    (red == 0 ? 1 : red) * (green == 0 ? 1 : green) * (blue == 0 ? 1 : blue)
-  );
-}
-
 convertGames(testGames).then((testGamesArray) => {
   const count = getPossibleGamesCount(testGamesArray, elfSet);
   console.assert(count == 8, "Expected :" + 8 + " but got: " + count);
 
-  const totalPower = getPowerOfMinimumSetOfCubesForGame(testGamesArray);
+  const totalPower = getSumOfPowerOfMinimumSetOfCubes(testGamesArray);
   console.assert(
     totalPower == 2286,
     "Expected :" + 2286 + " but got: " + totalPower,
@@ -125,7 +119,7 @@ convertGames(testGames).then((testGamesArray) => {
     const resultPart1 = getPossibleGamesCount(gamesArray, elfSet);
     console.log("result part 1: " + resultPart1);
 
-    const resultPart2 = getPowerOfMinimumSetOfCubesForGame(gamesArray);
+    const resultPart2 = getSumOfPowerOfMinimumSetOfCubes(gamesArray);
     console.log("result part 2: " + resultPart2);
   });
 });
