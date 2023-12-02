@@ -45,10 +45,10 @@ function convertWordToNumber(value) {
 
 processLineByLine(test)
 .then(result => {
-  console.assert(result == 281, "Expected: " + 281 + "\nBut got: " + result)
-});
+  console.assert(result == 281, "Expected: " + 281 + "\nBut got: " + result);
 
-processLineByLine(readline.createInterface({
-  input: fs.createReadStream('day1input.txt'),
-  crlfDelay: Infinity
-})).then(console.log);
+  processLineByLine(readline.createInterface({
+    input: fs.createReadStream('day1input.txt'),
+    crlfDelay: Infinity
+  })).then(console.log);
+});
