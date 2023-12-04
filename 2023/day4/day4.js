@@ -23,11 +23,7 @@ async function calculateTotalCardPoints(input) {
 
     for (const cardNumber of cardNumbers) {
       if (winningNumbers.includes(cardNumber)) {
-        if (points == 0) {
-          points = 1;
-        } else {
-          points *= 2;
-        }
+        points = points == 0 ? 1 : points * 2;
       }
     }
 
@@ -51,11 +47,7 @@ async function calculateTotalScrachCards(input) {
     let j = i + 1;
     for (const cardNumber of cardNumbers) {
       if (winningNumbers.includes(cardNumber)) {
-        if (copies[j]) {
-          copies[j] += copies[i] * 1;
-        } else {
-          copies[j] = copies[i];
-        }
+        copies[j] = copies[j] ? copies[j] + copies[i] : copies[i];
         j++;
       }
     }
