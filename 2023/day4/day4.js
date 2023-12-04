@@ -60,13 +60,9 @@ async function calculateTotalScrachCards(input) {
       }
     }
 
-    i++;
-  }
+    sum += copies[i];
 
-  for (const copy in copies) {
-    if (Number(copy) <= i - 1) {
-      sum += copies[copy];
-    }
+    i++;
   }
 
   return sum;
