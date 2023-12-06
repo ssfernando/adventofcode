@@ -42,38 +42,29 @@ function convertInput2(input) {
 }
 
 function getErrorMargin(inputObject) {
-  let raceBeatingWays = inputObject.times.reduce(
-    (pv, nv, ci) => ({
-      ...pv,
-      [ci]: 0,
-    }),
-    {},
-  );
-  for (let i = 0; i < inputObject.times.length; i++) {
-    let time = inputObject.times[i];
-    let distanceToBeat = inputObject.distances[i];
+  return inputObject.times.reduce((subTotal, time, index) => {
+    let distanceToBeat = inputObject.distances[index];
     let start = 1;
-    let end = inputObject.times[i] - 1;
+    let end = time - 1;
 
     while (start < end) {
-      if ((time - start) * start > distanceToBeat) {
-        raceBeatingWays[i]++;
+      if ((time - start) * start <= distanceToBeat) {
+        start++;
       }
-      if ((time - end) * end > distanceToBeat) {
-        raceBeatingWays[i]++;
+      if ((time - end) * end <= distanceToBeat) {
+        end--;
       }
-      start++;
-      end--;
 
-      if (start == end) {
-        if ((time - end) * end > distanceToBeat) {
-          raceBeatingWays[i]++;
-        }
+      if (
+        (time - start) * start > distanceToBeat &&
+        (time - end) * end > distanceToBeat
+      ) {
+        break;
       }
     }
-  }
 
-  return Object.values(raceBeatingWays).reduce((pv, nv) => pv * nv);
+    return subTotal * (end - start + 1);
+  }, 1);
 }
 
 const testResult1 = getErrorMargin(convertInput(testInput));
